@@ -3,7 +3,11 @@
 import math
 
 def we_have_enough_for_1_batch(recipe, ingredients):
-  if(len(recipe.keys() != len(ingredients.keys()))):
+  # print(recipe)
+  # print(ingredients)
+
+
+  if(len(recipe.keys()) != len(ingredients.keys())):
     return False
   
   count = 0#len(ingredients.keys())
@@ -15,18 +19,18 @@ def we_have_enough_for_1_batch(recipe, ingredients):
   return count == len(ingredients.keys())
 
 def recipe_batches(recipe, ingredients):
-  print(recipe)
-  print(ingredients)
-
-  my_ingredients = {*ingredients}
-
+  # ingredients
+  # print()
   # taking a recipe
   # subtracting out the ingredients untill we can't 
   number_of_batches = 0
-  while(we_have_enough_for_1_batch(recipe, my_ingredients)):
+  while(we_have_enough_for_1_batch(recipe, ingredients)):
     for ingredient in recipe:
-      my_ingredients[ingredient] -= recipe[ingredient]
-      number_of_batches == 1
+      ingredients[ingredient] -= recipe[ingredient]
+    number_of_batches += 1
+    # print(recipe)
+
+    # print(ingredients)
   return number_of_batches
   # pass 
 
