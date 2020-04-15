@@ -54,9 +54,10 @@ def rock_paper_scissors(n):
 
   #   rock_paper_scissors(n-1)
   all_lists = rock_paper_scissors_helper(n, [], [])
-  [print(i) for i in all_lists]
+  return all_lists
+  # [print(i) for i in all_lists]
   # pass 
-rock_paper_scissors(5)
+# rock_paper_scissors(5)
 
 if __name__ == "__main__":
   if len(sys.argv) > 1:
