@@ -8,17 +8,31 @@ Item = namedtuple('Item', ['index', 'size', 'value'])
 def knapsack_solver(items, capacity):
 
   # print('solver', len(items), capacity)
+  items = [Item(0, 0, 0), *items]
+
   [print(i) for i in items]
-  capacity_list = [n for n in range(1, capacity)]
-  table = [[0 for x in range(capacity)] for y in range(len(items))]
+  capacity_list = [n for n in range(capacity + 1)]
+
+  table = []#[[0 for x in range(capacity)] for y in range(len(items))]
+  for y in range(len(items)):
+    row = []
+    for x in range(capacity + 1):
+      row.append(0)
+    table.append(row)
+    
   # I think the table is set up slightly wrong
   # it may also be inittialized incorrectly
+
   [print(i) for i in table]
+  print(capacity_list)
+  
+  # exit()
   print()
   # make a fake item (0, 0, 0)
-  for item in items:
+  for i, item in enumerate(items):
     # we make all the possible knapsacks made from items[0,ith item]
     for c, current_capacity in enumerate(capacity_list):
+      print(i, c)
       # print(item, current_capacity)
       # print(5)
       # print(current_capacity)
@@ -26,6 +40,8 @@ def knapsack_solver(items, capacity):
       item_index = item.index
       item_size = item.size
       item_value = item.value
+      print("capacity", current_capacity, "weight", item_size, 'payoff', item_value)
+      print('difference', current_capacity - item_size)
       # exactly right amount(just add the one thing)
       if current_capacity - item_size == 0:
         table[i][c] = item_value
@@ -40,16 +56,21 @@ def knapsack_solver(items, capacity):
         # It's wrong because it may have a lower value than the
         # previous capacity for the same item so we must consider 2 options? still confusing
         # maybe I'm just confused at how a lower value would ever show up
-
+        print(item_value + table[i - 1][c - item_size], table[i][c - 1])
         # we want the max value of these 2 possibilities
         table[i][c] = max(
                           # include the value to our last best value(t[i - 1][c - item_size])
                           item_value + table[i - 1][c - item_size],
 
-                          # exclude the value
-                          table[i][c - 1])
-    print(table[i])
+                          # exclude the value and copy the value from the prev row down
+                          table[i - 1][c])
+      # [print(i) for i in items]
+      # [print(items[i], row) for i, row in enumerate(table)]
     print()
+    # [print((items[i].index, items[i].size, items[i].value), row) for i, row in enumerate(table)]
+  [print((items[i].index, items[i].size, items[i].value), row) for i, row in enumerate(table)]
+
+  print(capacity)
   # [print(i) for i in table]
   # pass
 def factorial(value):
